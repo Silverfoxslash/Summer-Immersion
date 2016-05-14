@@ -83,7 +83,7 @@ function calculate(height, pollutant,distance,windspeed,centerline,sc)
     }
     sigy=(k1*(windspeed))/((1+((windspeed)/k2))^k3);
     sigz=(k4*(windspeed))/((1+((windspeed)/k2))^k5);
-    concentation=( pollutant/(2*Math.PI*sigy*sigz))*(Math.pow(Math.E,-centerline/2*sigy))*(Math.pow(Math.E,)      )
+    concentation=( pollutant/(2*Math.PI*sigy*sigz))*(Math.pow(Math.E,-centerline/2*sigy))*(2*(Math.pow(Math.E,- height/(2*sigz))) );
 
 
 }
