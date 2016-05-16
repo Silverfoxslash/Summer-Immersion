@@ -17,7 +17,8 @@
   	<style type="text/css">
   	@import url("bootstrap.css");
   	</style>
-  	<script type="text/javascript" src="Air Mod.js"></script>
+  	<script type="text/javascript" src="AirMod.js"></script>
+
   </head>
   <body>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
@@ -51,7 +52,7 @@
     	<div class="form-group">
     		<label for="SC" class="col-sm-2 control-label"> Stability Condition </label>
         		<div class="col-sm-10">
-					<select class="form-control" id="SC" data-toggle="tooltip" data-placement="top" title="Chart for detemining 'Stability Condition' at bottom of applet.  For standard use leave 'D' selected.">
+					<select class="form-control" id="StabilityClass" data-toggle="tooltip" data-placement="top" title="Chart for detemining 'Stability Condition' at bottom of applet.  For standard use leave 'D' selected.">
         				<option>A</option>
         				<option>B</option>
         				<option>C</option>
@@ -80,7 +81,8 @@
     	<img src="https://hub.globalccsinstitute.com/sites/default/files/publications/books/188478/images/fig127.jpg" alt="Stability condition chart" align="middle">
     </div>
     <div>
-    	<input type="submit" class="btn btn-info btn-block" id="subButton" value="Submit Button">
+    	<button type="submit" class="btn btn-info btn-block" id="subButton" >Submit</button>
     </div>
+	<p id="result"></p>
   </body>
 </html>
