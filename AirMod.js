@@ -5,6 +5,7 @@
 //How z is height we are measureing, which is ground lvl so we can take out z
 // the function which handles the input field logic
 // use an eventlistener for the event
+window.addEventListener('load',document.getElementById("subButton").addEventListener("click", getVaribles));
 
 
 function getVaribles()
@@ -16,22 +17,21 @@ function getVaribles()
     var WindSpeed = document.getElementById('WindSpeedField').value;
     var CenterLineDistance = document.getElementById('DistanceFromCenterlineField').value;
     var StabilityClass = document.getElementById('StabilityClass').value;
-    var result = document.getElementById('result').value;;
-
+    var result = document.getElementById('result').value;
     if (HeightField.length < 0)
     {
         alert("Please enter a positive number for height.");
-        return;
+
     }
     else if(Distance < 0)
     {
         alert( "Please enter a positive number for distance from stack.");
-        return;
+
     }
     else if (WindSpeed < 0)
     {
         alert( "Please enter a positive number for wind speed.");
-        return;
+
     }
     else
     {
