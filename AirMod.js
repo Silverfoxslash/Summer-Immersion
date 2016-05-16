@@ -22,17 +22,22 @@ function getVaribles()
     var CenterLineDistance = document.getElementById('DistanceFromCenterlineField').value;
     var StabilityClass = document.getElementById('StabilityClass').value;
     var result = document.getElementById('result').value;
-    if (HeightField.length < 0)
+
+    if (HeightField <= 0)
     {
         alert("Please enter a positive number for height.");
 
+    }
+    else if (Pollutant <= 0)
+    {
+        alert("Please enter a number greater than zero for pollution.")
     }
     else if(Distance < 0)
     {
         alert( "Please enter a positive number for distance from stack.");
 
     }
-    else if (WindSpeed < 0)
+    else if (WindSpeed <= 0)
     {
         alert( "Please enter a positive number for wind speed.");
 
@@ -96,8 +101,8 @@ function calculate(height, pollutant,distance,windspeed,centerline,sc)
     }
     var sigy=(k1*(windspeed))/((1+((windspeed)/k2))^k3);
     var sigz=(k4*(windspeed))/((1+((windspeed)/k2))^k5);
-    concentation=( pollutant/(2*Math.PI*sigy*sigz))*(Math.pow(Math.E,-centerline/2*sigy))*(2*(Math.pow(Math.E,- height/(2*sigz))) );
-
+    var concentation=( pollutant/(2*Math.PI*sigy*sigz))*(Math.pow(Math.E,-centerline/2*sigy))*(2*(Math.pow(Math.E,- height/(2*sigz))) );
+    document.getElementById("result").innerHTML= concentation.toExponential(3) + ' Grams per square meter';
     return concentation;
 }
 function DrawGraph(height,pollatant,windspeed,sc) {
