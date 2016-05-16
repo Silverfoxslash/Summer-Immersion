@@ -5,7 +5,11 @@
 //How z is height we are measureing, which is ground lvl so we can take out z
 // the function which handles the input field logic
 // use an eventlistener for the event
-window.addEventListener('load',document.getElementById("subButton").addEventListener("click", getVaribles));
+window.onload=function () {
+
+
+
+    document.getElementById("subButton").addEventListener("click", getVaribles);
 
 
 function getVaribles()
@@ -98,4 +102,5 @@ function calculate(height, pollutant,distance,windspeed,centerline,sc)
 }
 function DrawGraph(height,pollatant,windspeed,sc) {
     
+}
 }
