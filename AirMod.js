@@ -19,11 +19,11 @@ function getVaribles()
     var Pollutant = document.getElementById('PollutantRelease').value;
     var Distance = document.getElementById('DistanceField').value;
     var WindSpeed = document.getElementById('WindSpeedField').value;
-    var CenterLineDistance = document.getElementById('DistanceFromCenterlineField').value;
+    var CenterLineDistance =Number( document.getElementById('DistanceFromCenterlineField').value);
     var StabilityClass = document.getElementById('StabilityClass').value;
     var result = document.getElementById('result').value;
 
-    if (HeightField <= 0)
+    if (HeightField < 0)
     {
         alert("Please enter a positive number for height.");
 
@@ -45,7 +45,7 @@ function getVaribles()
     else
     {
         calculate(HeightField,Pollutant,Distance,WindSpeed,CenterLineDistance,StabilityClass);
-        DrawGraph(HeightField,Pollutant,Distance,WindSpeed,CenterLineDistance,StabilityClass)
+        //DrawGraph(HeightField,Pollutant,Distance,WindSpeed,CenterLineDistance,StabilityClass)
     }
 
 }
@@ -55,56 +55,58 @@ function getVaribles()
 function calculate(height, pollutant,distance,windspeed,centerline,sc) 
 {
     var k1, k2, k3, k4;
-    switch (sc)
-    {
+    switch (sc) {
         case 'A':
-            k1=0.250;
-            k2=927;
-            k3=0.189;
-            k4=0.1020;
-            k5=-1.918;
+            k1 = 0.250;
+            k2 = 927;
+            k3 = 0.189;
+            k4 = 0.1020;
+            k5 = -1.918;
             break;
         case 'B':
-            k1=0.2020;
-            k2=370;
-            k3=0.162;
-            k4=0.0962;
-            k5=-0.101;
+            k1 = 0.2020;
+            k2 = 370;
+            k3 = 0.162;
+            k4 = 0.0962;
+            k5 = -0.101;
             break;
         case 'C':
-            k1=0.134;
-            k2=283;
-            k3=0.134;
-            k4=0.0722;
-            k5=0.102;
+            k1 = 0.134;
+            k2 = 283;
+            k3 = 0.134;
+            k4 = 0.0722;
+            k5 = 0.102;
             break;
         case 'D':
-            k1=0.0787;
-            k2=707;
-            k3=0.135;
-            k4=0.0475;
-            k5=0.465;
+            k1 = 0.0787;
+            k2 = 707;
+            k3 = 0.135;
+            k4 = 0.0475;
+            k5 = 0.465;
             break;
         case 'E':
-            k1=0.0566;
-            k2=1070;
-            k3=0.137;
-            k4=0.0335;
-            k5=0.624;
+            k1 = 0.0566;
+            k2 = 1070;
+            k3 = 0.137;
+            k4 = 0.0335;
+            k5 = 0.624;
             break;
         case 'F':
-            k1=0.0370;
-            k2=1170;
-            k3=0.134;
-            k4=0.0220;
-            k5=0.700;
+            k1 = 0.0370;
+            k2 = 1170;
+            k3 = 0.134;
+            k4 = 0.0220;
+            k5 = 0.700;
             break;
     }
-    windspeed=windspeed/2.23694;
-    var sigy=(k1*(windspeed))/((1+((windspeed)/k2))^k3);
-    var sigz=(k4*(windspeed))/((1+((windspeed)/k2))^k5);
-    var concentation=( pollutant/(2*Math.PI*sigy*sigz))*(Math.pow(Math.E,-centerline/2*sigy))*(2*(Math.pow(Math.E,- height/(2*sigz))) );
-    document.getElementById("result").innerHTML= concentation.toExponential(3) + ' Grams per square meter';
+
+    var sigy=(k1*distance)/((1+(distance/k2))^k3);
+    var sigz=(k4*distance)/((1+(distance/k2))^k5);
+    var concentation=( pollutant/(2*Math.PI*sigy*sigz*windspeed))*[Math.pow(Math.E,(-(centerline*centerline)/(2*sigy*sigy)))]*2*[(Math.pow(Math.E,((-height*height)/(2*sigz*sigz))))];
+
+    document.getElementById("result").innerHTML= concentation*1000000+ ' micrograms per cubic meter.';
+
+
     return concentation;
 }
 function DrawGraph(height,pollatant,distance,windspeed,centerline,sc) {
@@ -116,10 +118,10 @@ function DrawGraph(height,pollatant,distance,windspeed,centerline,sc) {
     if (distance >= centerline)
     {
 
-        for (a = 0; a < parseInt(distance) + 10; a ++)
+        for (a = 0; a < distance + 10; a ++)
         {
 
-            for (b = 0; b < parseInt(distance) + 10; b +=.5)
+            for (b = 0; b < distance + 10; b ++)
             {
                 x[counter]=a;
                 y[counter]=b;
@@ -133,7 +135,7 @@ function DrawGraph(height,pollatant,distance,windspeed,centerline,sc) {
     }
     else
     {
-        for (a = 0; a < parseInt(centerline) + 10; a ++) {
+        for (a = 0; a < centerline + 10; a ++) {
             x[a]=a;
             y[a]=a;
 
