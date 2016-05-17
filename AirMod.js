@@ -45,6 +45,7 @@ function getVaribles()
     else
     {
         calculate(HeightField,Pollutant,Distance,WindSpeed,CenterLineDistance,StabilityClass);
+        DrawGraph(HeightField,Pollutant,Distance,WindSpeed,CenterLineDistance,StabilityClass)
     }
 
 }
@@ -99,13 +100,89 @@ function calculate(height, pollutant,distance,windspeed,centerline,sc)
             k5=0.700;
             break;
     }
+    windspeed=windspeed/2.23694;
     var sigy=(k1*(windspeed))/((1+((windspeed)/k2))^k3);
     var sigz=(k4*(windspeed))/((1+((windspeed)/k2))^k5);
     var concentation=( pollutant/(2*Math.PI*sigy*sigz))*(Math.pow(Math.E,-centerline/2*sigy))*(2*(Math.pow(Math.E,- height/(2*sigz))) );
     document.getElementById("result").innerHTML= concentation.toExponential(3) + ' Grams per square meter';
     return concentation;
 }
-function DrawGraph(height,pollatant,windspeed,sc) {
-    
+function DrawGraph(height,pollatant,distance,windspeed,centerline,sc) {
+    GraphSpace=document.getElementById('GraphSpace');
+    var x = [];
+    var y = [];
+    var z = [];
+    var counter=0;
+    if (distance >= centerline)
+    {
+
+        for (a = 0; a < parseInt(distance) + 10; a ++)
+        {
+
+            for (b = 0; b < parseInt(distance) + 10; b +=.5)
+            {
+                x[counter]=a;
+                y[counter]=b;
+                counter++;
+                x[counter]=a;
+                y[counter]=-b;
+                counter++;
+            }
+
+        }
+    }
+    else
+    {
+        for (a = 0; a < parseInt(centerline) + 10; a ++) {
+            x[a]=a;
+            y[a]=a;
+
+            x.push(a);
+            y.push(-a);
+        }
+    }
+    for(a=0; a < x.length; a++)
+    {
+        z[a]=(calculate(height,pollatant,x[a],windspeed,y[a],sc) );
+    }
+    var trace =
+    {
+        x,y,z,
+        mode: 'lines',
+        marker:
+        {
+            color: '#1f77b4',
+            size: 12,
+            symbol: 'circle',
+            line:
+            {
+                color: 'rgb(0,0,0)',
+                width: 0
+            }
+        },
+        line:
+        {
+            color: '#1f77b4',
+            width: 1
+        },
+        type: 'scatter3d'
+    };
+
+    var layout =
+    {
+            title: 'Pollution concentration',
+            yaxis:{title:'Centerline distance'},
+            xaxis:{title: 'Distance'},
+            autosize: true,
+            width: 800,
+            height: 800,
+
+    };
+
+    Plotly.newPlot(GraphSpace, [trace], layout);
+
 }
+
+
+
 }
