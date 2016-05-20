@@ -9,6 +9,12 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
+#body{
+  background:#aa0000;
+  height: 100%;
+  background-image: url("zenbg-1.png"), url("zenbg-2.png");
+  background-repeat: repeat-x, repeat;
+}
 body {
   margin: 0;
 }

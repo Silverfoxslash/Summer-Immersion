@@ -5,9 +5,11 @@
 //How z is height we are measureing, which is ground lvl so we can take out z
 // the function which handles the input field logic
 // use an eventlistener for the event
+
+
 window.onload=function () {
 
-
+    
     document.getElementById("subButton").addEventListener("click", getVaribles);
 
 
@@ -95,33 +97,51 @@ window.onload=function () {
         var sigz = (k4 * distance) / (Math.pow([1 + (distance / k2)], k5));
         var concentation = ( pollutant / (2 * Math.PI * sigy * sigz * windspeed)) * [Math.pow(Math.E, (-(centerline * centerline) / (2 * sigy * sigy)))] * 2 * [(Math.pow(Math.E, ((-height * height) / (2 * sigz * sigz))))] * 1000000;
 
-        document.getElementById("result").innerHTML = concentation + ' micrograms per cubic meter.';
+        document.getElementById("result").innerHTML = concentation.toExponential(4) + ' micrograms per cubic meter.';
 
 
         return concentation;
     }
 
     function Draw3DGraph(height, pollatant, distance, windspeed, centerline, sc) {
-        GraphSpace = document.getElementById('GraphSpace');
+        var GraphSpace = document.getElementById('GraphSpace');
         var x = [];
+        var x1 = [];
+
         var y = [];
+        var y1 = [];
         var z = [];
         var counter = 0;
 
-        for (a = 0; a < distance + 1 + 10; a += distance / 150) {
+        for (a = 1; a < distance + 1 + 10; a += distance / 175)
+        {
 
-            for (b = 0; b < distance + 1 + 10; b += distance / 150) {
+            for (b = 0; b < distance + 1 + 10; b += distance / 175)
+            {
                 x[counter] = a;
                 y[counter] = b;
                 counter++;
+            }
 
+        }
+
+        counter=0;
+        for (a =1 ; a >1; a += distance / 175)
+        {
+            for (b = 0; b < distance + 1 + 10; b += distance / 175)
+            {
+                x1[counter] = a;
+                y1[counter] = -1*b;
+                counter++;
             }
 
         }
 
 
-        for (a = 0; a < x.length; a++) {
-            z[a] = (calculate(height, pollatant, x[a], windspeed, y[a], sc) );
+        for (a = 0; a < x.length; a++)
+        {
+            z[a]=calculate(height, pollatant, x[a], windspeed, y[a], sc);
+
         }
         var trace =
         {
@@ -132,29 +152,53 @@ window.onload=function () {
                 size: 12,
                 symbol: 'circle',
                 line: {
-                    color: 'rgb(0,0,0)',
-                    width: 0
+                    color: 'black',
+                    width: 3,
                 }
             },
             line: {
                 color: '#1f77b4',
-                width: 1
+                width: '.40'
             },
             type: 'scatter3d'
         };
 
+        var data=[trace]
         var layout =
         {
             title: 'Pollution concentration',
-            yaxis: {title: 'Centerline distance'},
-            xaxis: {title: 'Distance'},
-            autosize: true,
-            width: 800,
-            height: 800,
-
+            xaxis: {
+                title: 'Distance from stack',
+                titlefont: {
+                    family: 'Courier New, monospace',
+                    size: 18,
+                    color: '#7f7f7f'
+                }
+            },
+            yaxis: {
+                title: 'Centerline Distance',
+                titlefont: {
+                    family: 'Courier New, monospace',
+                    size: 18,
+                    color: '#7f7f7f'
+                },
+                zaxis: {
+                    title: 'Concentration',
+                    titlefont: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                },
+                autosize: true,
+                width: 800,
+                height: 800,
+            }
         };
 
-        Plotly.newPlot(GraphSpace, [trace], layout);
+        Plotly.newPlot('GraphSpace', data, layout);
+
+        
     }
 
     function DrawSurfaceGraph(height, pollatant, distance, windspeed, centerline, sc) {
@@ -208,7 +252,7 @@ window.onload=function () {
 
         for (a = 0; a < distance + 1; a++) {
             x[a] = a;
-            y[a] = (calculate(height, pollatant, a, windspeed, centerline, sc))
+            y[a] = (calculate(height, pollatant, a, windspeed, centerline, sc));
         }
 
 
