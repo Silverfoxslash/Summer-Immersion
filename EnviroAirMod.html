@@ -22,81 +22,77 @@
 	<script type="text/javascript" src="AirMod.js"></script>
 
 </head>
-<body style="">
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!-- JQuery JS URL-->
-<div id="body" >
-<h3 align="center" style="width: 50%; font-size: 350%; margin: 30px;" >Environmental Air Model</h3>
-<form class="form-horizontal" >
-	<img src="https://hub.globalccsinstitute.com/sites/default/files/publications/books/188478/images/fig127.jpg" alt="Stability condition chart" align="right" style="z-index: 1; position: absolute;margin-left: 800px;	float: right">
-	<div class="form-group">
-		<label for="InputLocation" class="col-sm-2 control-label" style="font-size: 150%;color: white;">Location</label>
-		<div class="col-sm-10" 	style=" width: 400px;">
-			<input type="text" class="form-control" id="InputLocation" placeholder="Please enter Location in city, state format">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="HeightField"  class="col-sm-2 control-label" style="font-size: 150%;color: white;">Stack Height</label>
-		<div class="col-sm-10" style=" width: 400px;">
-			<input type="number" class="form-control"  id="HeightField" placeholder="Please enter the stack height in meters">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="PollutantRelease"  class="col-sm-2 control-label" style="font-size: 150%;color: white;">Release Rate</label>
-		<div class="col-sm-10" style=" width: 400px;">
-			<input type="number" class="form-control"  id="PollutantRelease" placeholder="Please enter the rate of release in  g/sec ">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="WindSpeedField" class="col-sm-2 control-label" style="font-size: 150%;color: white;">Wind Speed</label>
-		<div class="col-sm-10" style=" width: 400px;">
-			<input type="number" class="form-control"  id="WindSpeedField" placeholder="Please enter the wind speed in Meters Per Sec ">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="StabilityClass" class="col-sm-2 control-label" style="font-size: 150%;color: white;"> Stability Condition </label>
-		<div class="col-sm-10" style=" width: 400px;">
-			<select class="form-control" id="StabilityClass" data-toggle="tooltip" data-placement="top" title="Chart for determining 'Stability Condition' at right of applet.  For standard use leave 'D' selected.">
-				<option>A</option>
-				<option>B</option>
-				<option>C</option>
-				<option selected="selected">D</option>
-				<option>E</option>
-				<option>F</option>
-			</select>
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="DistanceField" class="col-sm-2 control-label" style="font-size: 150%; color: white;"> Distance </label>
-		<div class="col-sm-10" style=" width: 400px;" >
-			<input type="number" class="form-control" id="DistanceField" placeholder="Please enter distance from pollutant">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="DistanceFromCenterlineField" class="col-sm-2 control-label" style="font-size: 150%;color: white;"> Center Line Distance </label>
-		<div class="col-sm-10" style=" width: 400px;">
-			<input type="number" class="form-control" id="DistanceFromCenterlineField"  value='0' data-toggle="tooltip" data-placement="top" title="Positive distance  is to right of center line.  Negative distance is left of center line if unknown leave as 0">
-		</div>
-	</div>
-</form>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<!-- Bootstrap JS URL-->
-<div>
-
-</div>
-<div align="center" style=" margin-left: 400px;width: 200px;">
-	<button type="submit" class="btn btn-info btn-block" id="subButton" >Submit</button>
-</div>
-
-
-  	<div class="panel-gtoup" style="width: 450px; margin-left: 30%; margin-top: 20px; ">
-    		<div class="panel panel-default" style="border-style: solid; border-color:darkorange; border-width: 5px;">
-	  			<div class="panel-body"><p id="result" align="center" style=" font-size: 150%; "></p></div>
-    		</div>1
+  <body>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+	<!-- JQuery JS URL-->
+  <h3 align="center" >Environmental Air Model</h3>
+	<form class="form-horizontal">
+		<div class="form-group">
+    		<label for="InputLocation" class="col-xs-2 control-label" align="center">Location</label>
+    		<div class="col-xs-2 col-lg-offset-3">
+        		<input type="text" class="form-control" id="InputLocation" placeholder="Please enter Location in city, state format">
+    		</div>
+    	</div>
+    	<div class="form-group">
+   		  <label for="HeightField"  class="col-xs-2 control-label">Stack Height</label>
+    		<div class="col-xs-2 col-lg-offset-3">
+        		<input type="number" class="form-control"  id="HeightField" placeholder="Please enter the stack height in meters"> 
+        	</div>
+   	  </div>
+    	<div class="form-group">
+    		<label for="PollutantRelease"  class="col-sm-2 control-label">Release Rate</label>
+    		<div class="col-xs-2 col-lg-offset-3">
+       		  <input type="number" class="form-control"  id="PollutantRelease" placeholder="Please enter the rate of release in  g/sec "> 
+   			</div>
+    	</div>
+ 		<div class="form-group">
+    		<label for="WindSpeedField" class="col-sm-2 control-label">Wind Speed</label>
+    			<div class="col-xs-2 col-lg-offset-3">
+        			<input type="number" class="form-control"  id="WindSpeedField" placeholder="Please enter the wind speed in Meters Per Sec "> 
+    			</div>
+    	</div>
+    	<div class="form-group">
+    		<label for="StabilityClass" class="col-sm-2 control-label"> Stability Condition </label>
+        		<div class="col-xs-2 col-lg-offset-3">
+					<select class="form-control" id="StabilityClass" data-toggle="tooltip" data-placement="top" title="Chart for detemining 'Stability Condition' at bottom of applet.  For standard use leave 'D' selected.">
+        				<option>A</option>
+        				<option>B</option>
+        				<option>C</option>
+        				<option selected="selected">D</option>
+        				<option>E</option>
+        				<option>F</option>
+    				</select>
+        		</div>
+     	</div>
+        <div class="form-group">
+        	<label for="DistanceField" class="col-sm-2 control-label"> Distance </label>
+            	<div class="col-xs-2 col-lg-offset-3">
+                	<input type="number" class="form-control" id="DistanceField" placeholder="Please enter distance from pollutant">
+                </div>
+        </div>
+        <div class="form-group">
+        	<label for="DistanceFromCenterlineField" class="col-sm-2 control-label"> Center Line Distance </label>
+            	<div class="col-xs-2 col-lg-offset-3">
+                	<input type="number" class="form-control" id="DistanceFromCenterlineField"  value='0' data-toggle="tooltip" data-placement="top" title="Positive distance  is to right of center line.  Negative distance is left of center line if unknown leave as 0">
+                </div>
+        </div>
+  	</form>
+	<!-- Include all compiled plugins (below), or include individual files as needed --> 
+	<!-- Bootstrap JS URL-->
+    <div id="mainpic" class="span4" align="center">
+    	<img src="https://hub.globalccsinstitute.com/sites/default/files/publications/books/188478/images/fig127.jpg" alt="Stability condition chart">
+    </div>
+    <div id="main-button" class="span4" align="center">
+    	<button type="submit" class="btn btn-info btn-lg pull-middle" id="subButton"  >Submit</button>
+    </div>
+  	<div class="panel-group" style="width: 450px; margin-left: 30%; margin-top: 20px; ">
+    		<div class="panel panel-default col-lg-10 col-lg-offset-2" style="border-style: solid; border-color:Black; border-width: 5px;">
+	  			<div class="panel-body"><p id="result" align="middle" style=" font-size: 150%; "></p></div>
+    		</div>
   	</div>
 <div id="GraphSpace" style="width: 800px; height: 800px; margin-top: 30px"></div>
-	</div>
+	
+
 </body>
 
 </html>
-
