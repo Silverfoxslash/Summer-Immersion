@@ -22,7 +22,7 @@ window.onload=function () {
         var CenterLineDistance = Number(document.getElementById('DistanceFromCenterlineField').value);
         var StabilityClass = document.getElementById('StabilityClass').value;
         var result = document.getElementById('result').value;
-		var Location = document.getElementById("ImputLocation").value;
+		var Location = document.getElementById("InputLocation").value;
 
         if (HeightField < 0) {
             alert("Please enter a positive number for height.");
@@ -39,6 +39,10 @@ window.onload=function () {
             alert("Please enter a positive number for wind speed.");
 
         }
+		else if(Location="  "){
+			alert("Please enter the location of the pollutant source.");
+			
+		}
         else {
             calculate(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
             DrawLinearGraph(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
