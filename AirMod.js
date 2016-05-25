@@ -1,5 +1,6 @@
 /**
  * Created by Jeremy on 5/12/2016.
+ * Marcus Spears Contributed with map integration 5/25/2016.
  */
 //Formula for polution concentration at a point is C=(Q/2pi(sigy)sigz))(e^(-.5(y/sigy)))(e^(-.5((H-z)/(sigz)))+e^(-.5((H+z)/(sigz)))
 //How z is height we are measureing, which is ground lvl so we can take out z
@@ -22,7 +23,6 @@ window.onload=function () {
         var CenterLineDistance = Number(document.getElementById('DistanceFromCenterlineField').value);
         var StabilityClass = document.getElementById('StabilityClass').value;
         var result = document.getElementById('result').value;
-		var Location = document.getElementById("InputLocation").value;
 
         if (HeightField < 0) {
             alert("Please enter a positive number for height.");
@@ -46,6 +46,7 @@ window.onload=function () {
         else {
             calculate(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
             DrawLinearGraph(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
+			FindAddress(Distance);
         }
 
     }
@@ -168,7 +169,7 @@ window.onload=function () {
             type: 'scatter3d'
         };
 
-        var data=[trace]
+        var data=[trace];
         var layout =
         {
             title: 'Pollution concentration',
@@ -293,4 +294,50 @@ window.onload=function () {
         Plotly.newPlot(GraphSpace, [trace], layout);
 
     }
-}
+	
+	var geocoder;
+	var map;
+	function drawMap()
+	{
+		geocoder = new google.maps.Geocoder();
+		var latlng = new google.mapa.LatLng(36.1627, 86.7816);
+		var mapOptions =
+		{
+			zoom:6,
+			center: latlng
+		}
+		map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	}
+	function FindAddress(distance)
+	{
+		var address = document.getElementById("InputLocation").value;
+		geocoder.geocode( {'address' : address}, function(results, status)
+		{
+			if (status == google.maps.GeocoderStatus.OK)
+			{
+				map.setCenter(results[0].geometry.location);
+				var marker = new google.maps.Marker(
+				{
+					map:map,
+					position: results[0].geometry.location
+				});
+			}
+			else 
+			{
+				alert("Geocode was not successful for the following reason: " + status);
+			}
+		});
+		var distanceCircle = new google.maps.Circle(
+		{
+			strokeColor: '#FF0000',
+			strokeOpacity: 0.8,
+			strokeWeight: 2,
+			fillColor: '#FF0000',
+			fillOpacity: 0.15,
+			map: map,
+			center: marker[position].center,
+			radius:  distance,
+		});
+	}
+	
+}	
