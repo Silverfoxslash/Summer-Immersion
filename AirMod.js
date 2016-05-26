@@ -16,6 +16,10 @@ window.onload=function () {
 
     function getVaribles() {
 
+		if(document.getElementById('InputLocation') == !null)
+		{
+			var Location = document.getElementById('InputLocation').value;
+		}
         var HeightField = document.getElementById('HeightField').value;
         var Pollutant = document.getElementById('PollutantRelease').value;
         var Distance = Number(document.getElementById('DistanceField').value);
@@ -23,9 +27,8 @@ window.onload=function () {
         var CenterLineDistance = Number(document.getElementById('DistanceFromCenterlineField').value);
         var StabilityClass = document.getElementById('StabilityClass').value;
         var result = document.getElementById('result').value;
-		var Location = document.getElementById('ImputLocation').value;
-
-        if (HeightField < 0) {
+		
+		if (HeightField < 0) {
             alert("Please enter a positive number for height.");
 
         }
