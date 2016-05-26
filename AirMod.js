@@ -23,13 +23,14 @@ window.onload=function () {
         var CenterLineDistance = Number(document.getElementById('DistanceFromCenterlineField').value);
         var StabilityClass = document.getElementById('StabilityClass').value;
         var result = document.getElementById('result').value;
+		var Location = document.getElementById('ImputLocation').value;
 
         if (HeightField < 0) {
             alert("Please enter a positive number for height.");
 
         }
         else if (Pollutant <= 0) {
-            alert("Please enter a number greater than zero for pollution.")
+            alert("Please enter a number greater than zero for pollution.");
         }
         else if (Distance < 0) {
             alert("Please enter a positive number for distance from stack.");
@@ -39,14 +40,15 @@ window.onload=function () {
             alert("Please enter a positive number for wind speed.");
 
         }
-		else if(Location="  "){
-			alert("Please enter the location of the pollutant source.");
-			
+		else if(Location == !null )
+		{
+				drawMap();
+				FindAddress(Distance);
 		}
         else {
             calculate(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
             DrawLinearGraph(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
-			FindAddress(Distance);
+		
         }
 
     }
