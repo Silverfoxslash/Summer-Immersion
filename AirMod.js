@@ -16,10 +16,7 @@ window.onload=function () {
 
     function getVaribles() {
 
-		if(document.getElementById('InputLocation') == !null)
-		{
-			var Location = document.getElementById('InputLocation').value;
-		}
+
         var HeightField = document.getElementById('HeightField').value;
         var Pollutant = document.getElementById('PollutantRelease').value;
         var Distance = Number(document.getElementById('DistanceField').value);
@@ -43,15 +40,10 @@ window.onload=function () {
             alert("Please enter a positive number for wind speed.");
 
         }
-		else if(Location == !null )
-		{
-				initialize();
-				FindAddress(Distance);
-		}
         else {
             calculate(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
             DrawLinearGraph(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
-		
+		 	
         }
 
     }
@@ -302,10 +294,10 @@ window.onload=function () {
 	
 	var geocoder;
 	var map;
-	function initialize()
+	function initMap()
 	{
 		geocoder = new google.maps.Geocoder();
-		var latlng = new google.mapa.LatLng(36.1627, 86.7816);
+		var latlng = new google.mapa.LatLng(36.1627, -86.7816);
 		var mapOptions =
 		{
 			zoom:6,
@@ -313,36 +305,6 @@ window.onload=function () {
 		}
 		map = new google.maps.Map(document.getElementById("map"), mapOptions);
 	}
-	function FindAddress(distance)
-	{
-		var address = document.getElementById("InputLocation").value;
-		geocoder.geocode( {'address' : address}, function(results, status)
-		{
-			if (status == google.maps.GeocoderStatus.OK)
-			{
-				map.setCenter(results[0].geometry.location);
-				var marker = new google.maps.Marker(
-				{
-					map:map,
-					position: results[0].geometry.location
-				});
-			}
-			else 
-			{
-				alert("Geocode was not successful for the following reason: " + status);
-			}
-		});
-		var distanceCircle = new google.maps.Circle(
-		{
-			strokeColor: '#FF0000',
-			strokeOpacity: 0.8,
-			strokeWeight: 2,
-			fillColor: '#FF0000',
-			fillOpacity: 0.15,
-			map: map,
-			center: marker[position].center,
-			radius:  distance,
-		});
-	}
+
 	
 }	

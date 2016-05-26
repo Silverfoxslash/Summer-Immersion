@@ -31,21 +31,29 @@
 			background-size: 100% 100%;
 		}
 </style>
-<style type="text/css">
-  	html, body 
-  	{ 
-  		height: 100%;
-		margin: 0;
-		padding: 0; 
-	}
-  	#map 
-	{ 
-		height: 100%; 
-	}
-</style>
-<script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyActkyJB4gDsAoU6ZjOxxP-Mwnj80s3URY&callback=initMap">
-    </script>
+<style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+      #floating-panel {
+        position: top;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+    </style>
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 	<script type="text/javascript" src="AirMod.js"></script>
 </head>
@@ -55,12 +63,7 @@
    
   <h1 align="center" >Environmental Air Model</h1>
 	<form class="form-horizontal">
-		<div class="form-group">
-    		<label for="InputLocation" class="col-md-5 control-label" align="center">Location</label>
-    		<div class="col-md-3">
-        		<input type="text" class="form-control" id="InputLocation" placeholder="Please enter Location of the pollutant">
-    		</div>
-    	</div>
+	    	</div>
     	<div class="form-group">
    		  <label for="HeightField"  class="col-md-5 control-label">Stack Height</label>
     		<div class="col-xs-3">
@@ -119,8 +122,53 @@
     		</div>
   	</div>
 <div id="GraphSpace" style="width: 100%; height: 800px; margin-top: 350px; margin-left: 200px"></div>
+<h1 align="center"> For location data  please enter location of pollutant .</h1> 
+<div id="floating-panel">
+      <input id="address" type="textbox" value="Nashville, TN">
+      <input id="submit" type="button" value="Geocode">
+    </div>  
 <div id="map"></div>
+ <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat: 36.1627, lng: -86.7816}
+        });
+        var geocoder = new google.maps.Geocoder();
 
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+        });
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+			var cityCircle = new google.maps.Circle({
+      			strokeColor: '#FF0000',
+      			strokeOpacity: 0.8,
+      			strokeWeight: 2,
+      			fillColor: '#FF0000',
+      			fillOpacity: 0.15,
+      			map: map,
+      			center: results[0].geometry.location,
+      			radius: document.getElementById(DistanceField).value,
+   		 });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+<script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyActkyJB4gDsAoU6ZjOxxP-Mwnj80s3URY&callback=initMap">
+    </script>
 </body>
 
 </html>
