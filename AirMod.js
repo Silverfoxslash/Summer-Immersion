@@ -7,7 +7,7 @@
 // the function which handles the input field logic
 // use an eventlistener for the event
 
-
+var geocoder,Map, circle;
 window.onload=function () {
 
     
@@ -16,7 +16,7 @@ window.onload=function () {
 
     function getVaribles() {
 
-
+		var Location = document.getElementById('InputLocation').value;
         var HeightField = document.getElementById('HeightField').value;
         var Pollutant = document.getElementById('PollutantRelease').value;
         var Distance = Number(document.getElementById('DistanceField').value);
@@ -43,7 +43,7 @@ window.onload=function () {
         else {
             calculate(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
             DrawLinearGraph(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
-		 	
+		 	FindAddress(Distance);
         }
 
     }
@@ -291,19 +291,41 @@ window.onload=function () {
         Plotly.newPlot(GraphSpace, [trace], layout);
 
     }
-	
-	var geocoder;
-	var map;
-	function initMap()
+		
+	function FindAddress(distance)
 	{
-		geocoder = new google.maps.Geocoder();
-		var latlng = new google.mapa.LatLng(36.1627, -86.7816);
-		var mapOptions =
+		var address = document.getElementById("InputLocation").value;
+		geocoder.geocode( {'address' : address}, function(results, status)
 		{
-			zoom:6,
-			center: latlng
-		}
-		map = new google.maps.Map(document.getElementById("map"), mapOptions);
+			if (status == google.maps.GeocoderStatus.OK)
+			{
+				Map.setCenter(results[0].geometry.location);
+                Marker =new google.maps.Marker({
+                    map: Map,
+                    position: results[0].geometry.location
+                });
+                if(circle==null){
+                 circle = new google.maps.Circle({
+                    center: results[0].geometry.location,
+                    radius:distance,
+                    map: Map,
+                    fillColor: '#C2262D',
+                    fillOpacity: 0.15,
+                    strokeColor: '#C2262D',
+                    strokeOpacity: 1.0
+                });}
+                else
+                {
+                    circle.setRadius(distance);
+                    circle.setCenter(results[0].geometry.location);
+                }
+                Map.fitBounds(circle.getBounds());
+			}
+			else 
+			{
+				alert("Geocode was not successful for the following reason: " + status);
+			}
+		});
 	}
 
 	
