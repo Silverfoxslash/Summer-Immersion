@@ -45,7 +45,7 @@ window.onload=function () {
         }
 		else if(Location == !null )
 		{
-				drawMap();
+				initialize();
 				FindAddress(Distance);
 		}
         else {
@@ -302,7 +302,7 @@ window.onload=function () {
 	
 	var geocoder;
 	var map;
-	function drawMap()
+	function initialize()
 	{
 		geocoder = new google.maps.Geocoder();
 		var latlng = new google.mapa.LatLng(36.1627, 86.7816);
