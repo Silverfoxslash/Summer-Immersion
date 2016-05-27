@@ -17,32 +17,33 @@
 	<style type="text/css">
 		@import url("bootstrap.css");
 	</style>
-	<style type="text/css">
-		html, 
-		body 
-		{
-			height: 100%;
-		}
+	<style>
+	  html, body
+	  {
+		  height: 100%;
+		  margin: 0;
+		  padding: 0;
+	  }
+	  #map
+	  {
+		  height: 100%;
+	  }
+	  #floating-panel
+	  {
+		  position: top;
+		  top: 10px;
+		  left: 25%;
+		  z-index: 5;
+		  background-color: #fff;
+		  padding: 5px;
+		  border: 1px solid #999;
+		  text-align: center;
+		  font-family: 'Roboto','sans-serif';
+		  line-height: 30px;
+		  padding-left: 10px;
+	  }
+	</style>
 
-		body
-		{
-			background-image: url(http://smartercharger.com/wp-content/uploads/2013/04/07TH_AIR_POLLUTION_886689f.jpg);
-			background-repeat: no-repeat;
-			background-size: 100% 100%;
-		}
-</style>
-<style type="text/css">
-  	html, body 
-  	{ 
-  		height: 100%;
-		margin: 0;
-		padding: 0; 
-	}
-  	#map 
-	{ 
-		height: 100%; 
-	}
-</style>
 
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
@@ -118,7 +119,7 @@
 	  			<div class="panel-body"><p id="result" align="middle" style=" font-size: 150%; "></p></div>
     		</div>
   	</div>
-<div id="GraphSpace" style="width: 100%; height: 800px; margin-top: 350px; margin-left: 200px"></div>
+<div id="GraphSpace" style="width: 100%; height: 600px; margin-top: 150px; margin-left: 50px"></div>
 <div id="map"></div>
 
 

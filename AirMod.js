@@ -45,11 +45,9 @@ window.onload=function () {
         else {
             calculate(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
             DrawLinearGraph(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
-            //prevents from err if no location is inputed
-            if(Location!=null)
-            {
-                FindAddress(Distance);
-            }
+
+            FindAddress(Distance);
+
         }
 
     }
@@ -298,7 +296,7 @@ window.onload=function () {
 
     }
 
-
+//changes map if address has a in
 	function FindAddress(distance)
 	{
 		var address = document.getElementById("InputLocation").value;
