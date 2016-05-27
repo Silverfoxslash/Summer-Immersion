@@ -31,44 +31,36 @@
 			background-size: 100% 100%;
 		}
 </style>
-<style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-      #floating-panel {
-        position: top;
-        top: 10px;
-        left: 25%;
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 10px;
-      }
-    </style>
+<style type="text/css">
+  	html, body 
+  	{ 
+  		height: 100%;
+		margin: 0;
+		padding: 0; 
+	}
+  	#map 
+	{ 
+		height: 100%; 
+	}
+</style>
+
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
 	<script type="text/javascript" src="AirMod.js"></script>
-</head>
+
 <body>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
 	<!-- JQuery JS URL-->
    
-  <h1 align="center" >Environmental Air Model</h1> 
+  <h1 align="center" >Environmental Air Model</h1>
 	<form class="form-horizontal">
-    	<div class="form-group">
+		<div class="form-group">
     		<label for="InputLocation" class="col-md-5 control-label" align="center">Location</label>
     		<div class="col-md-3">
         		<input type="text" class="form-control" id="InputLocation" placeholder="Please enter Location of the pollutant">
     		</div>
-	    </div>
+    	</div>
     	<div class="form-group">
    		  <label for="HeightField"  class="col-md-5 control-label">Stack Height</label>
     		<div class="col-xs-3">
@@ -127,12 +119,26 @@
     		</div>
   	</div>
 <div id="GraphSpace" style="width: 100%; height: 800px; margin-top: 350px; margin-left: 200px"></div>
-
 <div id="map"></div>
 
-<script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyActkyJB4gDsAoU6ZjOxxP-Mwnj80s3URY&callback=initMap">
-    </script>
+
+	<script>
+
+		function initMap()
+		{
+			Map=new google.maps.Map(document.getElementById('map'), {
+				center: new google.maps.LatLng(36.1627, -86.7816),
+				zoom: 15,
+				mapTypeId : google.maps.MapTypeId.SATELLITE
+			});
+			geocoder = new google.maps.Geocoder();
+		}
+		</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQg3xux0MbGKzinf_ELsHflk0B52uTbOg&callback=initMap"
+			async defer>
+	</script>
+
+
 </body>
 
 </html>

@@ -2,21 +2,22 @@
  * Created by Jeremy on 5/12/2016.
  * Marcus Spears Contributed with map integration 5/25/2016.
  */
-//Formula for polution concentration at a point is C=(Q/2pi(sigy)sigz))(e^(-.5(y/sigy)))(e^(-.5((H-z)/(sigz)))+e^(-.5((H+z)/(sigz)))
+//Formula for polution concentration at a point is C=(Q/2pi(sigy)sigz))(e^(-.5(y^2/sigy^2)))(e^(-.5((H-z)^2/(sigz^2)))+e^(-.5((H+z)^2/(sigz^2)))
 //How z is height we are measureing, which is ground lvl so we can take out z
 // the function which handles the input field logic
 // use an eventlistener for the event
+//Gobal to work with the html scripts map
+var geocoder, Map, circle;
 
-var geocoder,Map, circle;
 window.onload=function () {
 
-    
+
     document.getElementById("subButton").addEventListener("click", getVaribles);
 
 
     function getVaribles() {
-
-		var Location = document.getElementById('InputLocation').value;
+        //pulls all tthe varibles from the html form
+        var Location = document.getElementById('InputLocation').value;
         var HeightField = document.getElementById('HeightField').value;
         var Pollutant = document.getElementById('PollutantRelease').value;
         var Distance = Number(document.getElementById('DistanceField').value);
@@ -40,15 +41,20 @@ window.onload=function () {
             alert("Please enter a positive number for wind speed.");
 
         }
+        //only ececutes if all the fields are filled
         else {
             calculate(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
             DrawLinearGraph(HeightField, Pollutant, Distance, WindSpeed, CenterLineDistance, StabilityClass);
-		 	FindAddress(Distance);
+            //prevents from err if no location is inputed
+            if(Location!=null)
+            {
+                FindAddress(Distance);
+            }
         }
 
     }
 
-
+    // Uses all the input field to calculate pollution and prints in result box
     function calculate(height, pollutant, distance, windspeed, centerline, sc) {
         var k1, k2, k3, k4;
         switch (sc) {
@@ -291,33 +297,37 @@ window.onload=function () {
         Plotly.newPlot(GraphSpace, [trace], layout);
 
     }
-		
+
+
 	function FindAddress(distance)
 	{
 		var address = document.getElementById("InputLocation").value;
+        //searches for coordinates and returns them
 		geocoder.geocode( {'address' : address}, function(results, status)
 		{
 			if (status == google.maps.GeocoderStatus.OK)
-			{
+			{   //changes from the preset nashville coordinates
 				Map.setCenter(results[0].geometry.location);
+
                 Marker =new google.maps.Marker({
                     map: Map,
                     position: results[0].geometry.location
                 });
+                //if first circle create circle
                 if(circle==null){
                  circle = new google.maps.Circle({
                     center: results[0].geometry.location,
                     radius:distance,
                     map: Map,
                     fillColor: '#C2262D',
-                    fillOpacity: 0.15,
+                    fillOpacity: 0.5,
                     strokeColor: '#C2262D',
                     strokeOpacity: 1.0
                 });}
-                else
+                else//prevents muliple circles from being created
                 {
                     circle.setRadius(distance);
-                    circle.setCenter(results[0].geometry.location);
+                    circle.setCenter(results[0].geometry.location)
                 }
                 Map.fitBounds(circle.getBounds());
 			}
@@ -326,7 +336,7 @@ window.onload=function () {
 				alert("Geocode was not successful for the following reason: " + status);
 			}
 		});
-	}
 
+	}
 	
-}	
+}
